@@ -19,7 +19,7 @@ namespace networkprotocol
             if (!condition)
             {
                 var stackFrame = new StackTrace().GetFrame(1);
-                check_handler(null, stackFrame.GetMethod().Name, stackFrame.GetFileName(), stackFrame.GetFileLineNumber());
+                check_handler("n/a", stackFrame.GetMethod().Name, stackFrame.GetFileName(), stackFrame.GetFileLineNumber());
             }
         }
 

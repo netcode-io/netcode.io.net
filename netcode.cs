@@ -153,7 +153,7 @@ namespace networkprotocol
             if (!condition)
             {
                 var stackFrame = new StackTrace().GetFrame(1);
-                assert_function?.Invoke(null, stackFrame.GetMethod().Name, stackFrame.GetFileName(), stackFrame.GetFileLineNumber());
+                assert_function?.Invoke("n/a", stackFrame.GetMethod().Name, stackFrame.GetFileName(), stackFrame.GetFileLineNumber());
                 Environment.Exit(1);
             }
         }
@@ -444,7 +444,8 @@ namespace networkprotocol
             assert(packet_data != null);
             assert(packet_bytes > 0);
             var socket_address = new IPEndPoint(to.data, to.port);
-            socket.handle.SendTo(packet_data, packet_bytes, SocketFlags.None, socket_address);
+            try { socket.handle.SendTo(packet_data, packet_bytes, SocketFlags.None, socket_address); }
+            catch (SocketException) { }
         }
 
         static int socket_receive_packet(socket_t socket, netcode_address_t from, byte[] packet_data, int max_packet_size)
