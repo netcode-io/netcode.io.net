@@ -112,7 +112,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run all unit tests",
          execute = function ()
             os.execute "test ! -d _test && premake5 solution"
-            os.execute "dotnet run -p _test"
+            os.execute "dotnet build -o ../bin _test/test.csproj && dotnet ./bin/test.dll"
          end
      }
  
@@ -122,7 +122,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run soak test",
          execute = function ()
             os.execute "test ! -d _soak && premake5 solution"
-            os.execute "dotnet run -p _soak"
+            os.execute "dotnet build -o ../bin _soak/soak.csproj && dotnet ./bin/soak.dll"
          end
      }
  
@@ -132,7 +132,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run profile tet",
          execute = function ()
             os.execute "test ! -d _profile && premake5 solution"
-            os.execute "dotnet run -p _profile"
+            os.execute "dotnet build -o ../bin _profile/profile.csproj && dotnet ./bin/profile.dll"
          end
      }
  
@@ -142,7 +142,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run the client",
          execute = function ()
             os.execute "test ! -d _client && premake5 solution"
-            os.execute "dotnet run -p _client"
+            os.execute "dotnet build -o ../bin _client/client.csproj && dotnet ./bin/client.dll"
          end
      }
  
@@ -152,7 +152,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run the server",
          execute = function ()
             os.execute "test ! -d _server && premake5 solution"
-            os.execute "dotnet run -p _server"
+            os.execute "dotnet build -o ../bin _server/server.csproj && dotnet ./bin/server.dll"
          end
      }
  
@@ -162,7 +162,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run the client/server testbed",
          execute = function ()
             os.execute "test ! -d _client_server && premake5 solution"
-            os.execute "dotnet run -p _client_server"
+            os.execute "dotnet build -o ../bin _client_server/client_server.csproj && dotnet ./bin/client_server.dll"
          end
      }
  
@@ -172,8 +172,7 @@ dotnet sln add _*/*.csproj]]
          description = "Build and run a netcode.io.net server inside a docker container",
          execute = function ()
              os.execute "docker run --rm --privileged alpine hwclock -s" -- workaround for clock getting out of sync on macos. see https://docs.docker.com/docker-for-mac/troubleshoot/#issues
-             os.execute "rm -rf docker/netcode.io.net \z
-&& mkdir -p docker/netcode.io.net \z
+             os.execute "rm -rf docker/netcode.io.net && mkdir -p docker/netcode.io.net \z
 && cp *.cs docker/netcode.io.net \z
 && cp premake5.lua docker/netcode.io.net \z
 && cd docker \z
@@ -189,9 +188,9 @@ dotnet sln add _*/*.csproj]]
          description = "Launch 256 client instances to stress test the server",
          execute = function ()
             os.execute "test ! -d _client && premake5 solution"
-             if os.execute "dotnet build _client" == true then
+             if os.execute "dotnet build -o ../bin _client/client.csproj" == true then
                 for i = 0, 255 do
-                    os.execute "dotnet run -p _client &"
+                    os.execute "dotnet ./bin/client.dll &"
                 end
              end
          end
