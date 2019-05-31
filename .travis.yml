@@ -11,9 +11,9 @@ install:
   - tar -zxvf /tmp/premake5.tar.gz
   
 before_script:
-  - dotnet restore
   - ./premake5 solution
+  - dotnet restore
 
 script:
-  - dotnet build -c Debug -o bin _test.csproj && dotnet ./bin/test.dll
-  - dotnet build -c Release -o bin _test.csproj && dotnet ./bin/test.dll
+  - dotnet build -c Debug -o ../bin _test/test.csproj && dotnet ./bin/test.dll
+  - dotnet build -c Release -o ../bin _test/test.csproj && dotnet ./bin/test.dll
