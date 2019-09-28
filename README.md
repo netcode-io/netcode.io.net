@@ -8,18 +8,16 @@
 
 **netcode.io** is a connection-oriented protocol built on top of UDP. 
 
-It's designed for client/server games with dedicated servers, like modern first person shooters.
+It's designed for use in client/server games with dedicated servers.
 
-It has the following features:
+It has the following security features:
 
-* Only authenticated clients can connect to your server.
-* Packet encryption and signature checks.
 * Protection against man-in-the-middle attacks.
 * Protection against DDoS amplification attacks.
 * Protection against packet replay attacks.
 * Protection against zombie clients.
 
-netcode.io is stable and well tested having been used in AAA game projects for over 2 years now.
+netcode.io has been used in several AAA game projects and is stable and mature.
 
 # How does it work?
 
